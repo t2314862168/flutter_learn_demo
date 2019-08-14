@@ -1,22 +1,29 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_learn_demo/app_bar.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+  // 透明状态栏
+  if (Platform.isAndroid) {
+    SystemUiOverlayStyle systemUiOverlayStyle =
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  }
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.dark,
-      sized: true,
-      child: MaterialApp(
-        title: 'Login By Pwd',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MyHomePage(title: 'Flutter Demo Home Page'),
+    return MaterialApp(
+      title: 'Login By Pwd',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -31,8 +38,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var topTextStyle = TextStyle(color: Colors.black, fontSize: 18.0);
-
   @override
   void initState() {
     super.initState();
@@ -41,15 +46,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-          alignment: Alignment.topRight,
-          child: Text(
-            '验证码登录',
-            style: topTextStyle,
-          ),
-        ),
+      appBar: MyAppBar(
+        actionName: '验证码登录',
+        centerTitle: 'FFFF',
+        onPressed: () {},
       ),
     );
   }
